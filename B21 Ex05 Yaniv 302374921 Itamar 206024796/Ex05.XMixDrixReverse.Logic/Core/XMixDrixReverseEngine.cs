@@ -14,8 +14,10 @@ namespace Ex05.XMixDrixReverse.Logic
         private ePlayMode m_PlayMode;
         private eGameState m_GameState;
 
+        #region Public Properties
+
         public Board Board
-        { 
+        {
             get { return m_Board; }
             private set
             {
@@ -45,7 +47,7 @@ namespace Ex05.XMixDrixReverse.Logic
         public ePlayMode PlayMode
         {
             get { return m_PlayMode; }
-            private set 
+            private set
             {
                 if (!m_IsGameRunning)
                 {
@@ -71,6 +73,8 @@ namespace Ex05.XMixDrixReverse.Logic
             get { return m_CurrentTurn; }
             private set { m_CurrentTurn = value; }
         }
+
+        #endregion
 
         public XMixDrixReverseEngine(int i_MaxPlayers)
         {
@@ -129,20 +133,18 @@ namespace Ex05.XMixDrixReverse.Logic
         {
             bool isValidInput = false;
 
-            if (!isValidPosition(i_Row, i_Column))
+            if (isValidPosition(i_Row, i_Column))
             {
                 isValidInput = true;
             }
 
             if (isValidInput)
             {
-                nextActionOnPlayerInput(i_Row, i_Column);
+                playMove(new Position(i_Row, i_Column));
 
                 if (CurrentPlayerTurn is NPC npcTurn)
                 {
                     playMove(npcTurn.RandomNextMove());
-                    changeTurn();
-                    handleGameState();
                 }
             }
 
@@ -154,18 +156,30 @@ namespace Ex05.XMixDrixReverse.Logic
             m_GameState = eGameState.Quit;
         }
 
-        private void nextActionOnPlayerInput(int i_Row, int i_Column)
+        public bool IsValidBoardChoice(int i_Size)
+        {
+            return (3 <= i_Size && i_Size <= 9);
+        }
+
+        public bool IsValidPlayModeChoice(int i_Mode)
+        {
+            return (i_Mode == 1 || i_Mode == 2);
+        }
+
+        #region Helpers
+
+        private void playMove(Position i_Position)
         {
             if (m_GameState != eGameState.Quit)
             {
-                playMove(new Position(i_Row, i_Column));
+                chnageBoardSymbol(i_Position);
             }
 
             changeTurn();
             handleGameState();
         }
 
-        private void playMove(Position i_Position)
+        private void chnageBoardSymbol(Position i_Position)
         {
             Board.SetItem(CurrentPlayerTurn.Symbol, i_Position.Row, i_Position.Column);
             bool hasWon = BoardUtils.HasCompleteSymbolSequence(Board, CurrentPlayerTurn.Symbol, i_Position);
@@ -227,14 +241,6 @@ namespace Ex05.XMixDrixReverse.Logic
                 !Board.IsOccupied(i_Row, i_Col));
         }
 
-        public bool IsValidBoardChoice(int i_Size)
-        {
-            return (3 <= i_Size && i_Size <= 9);
-        }
-
-        public bool IsValidPlayModeChoice(int i_Mode)
-        {
-            return (i_Mode == 1 || i_Mode == 2);
-        }
+        #endregion
     }
 }
