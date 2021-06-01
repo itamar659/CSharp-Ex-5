@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Ex05.XMixDrixReverse.UI
@@ -29,6 +30,31 @@ namespace Ex05.XMixDrixReverse.UI
         //Row 6
         Button m_ButtonStart;
 
+
+        public string Player1Name
+        {
+            get { return m_TextBoxPlayer1.Text; }
+        }
+
+        public bool isMultiplayer
+        {
+            get { return m_CheckBoxIsMultiplayer.Checked; }
+        }
+
+        public string Player2Name
+        {
+            get { return m_TextBoxPlayer2.Text; }
+        }
+
+        public int NumRows
+        {
+            get { return int.Parse(m_NumericUpDownRows.Text); }
+        }
+
+        public int NumCols
+        {
+            get { return int.Parse(m_NumericUpDownCols.Text); }
+        }
 
         public FormGameSettings()
         {
@@ -121,6 +147,7 @@ namespace Ex05.XMixDrixReverse.UI
             //Row 6
             m_ButtonStart = new Button();
             m_ButtonStart.Text = "Start";
+            m_ButtonStart.Click += new EventHandler(button_clicked);
             m_ButtonStart.AutoSize = true;
             m_ButtonStart.Left = 85;
             m_ButtonStart.Top = m_NumericUpDownCols.Top + 35;
@@ -131,6 +158,11 @@ namespace Ex05.XMixDrixReverse.UI
             this.StartPosition = FormStartPosition.CenterScreen;
             this.ShowInTaskbar = false;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+        }
+
+        private void button_clicked(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
