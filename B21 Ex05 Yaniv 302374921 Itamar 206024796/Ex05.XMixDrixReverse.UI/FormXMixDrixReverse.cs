@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Windows.Forms;
 
 namespace Ex05.XMixDrixReverse.UI
 {
-    class FormXMixDrixReverse
+    class FormXMixDrixReverse : Form
     {
     }
 }
