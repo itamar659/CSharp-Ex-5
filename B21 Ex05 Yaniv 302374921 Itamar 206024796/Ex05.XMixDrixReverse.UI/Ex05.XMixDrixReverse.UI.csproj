@@ -42,6 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BoardButtonArgs.cs" />
+    <Compile Include="BoardButtonCollection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BoardButtonEventHandler.cs" />
     <Compile Include="FormGameSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -49,6 +57,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ex05.XMixDrixReverse.Logic\Ex05.XMixDrixReverse.Logic.csproj">
+      <Project>{3e75cff0-13d7-498c-a9e0-60e39d556810}</Project>
+      <Name>Ex05.XMixDrixReverse.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

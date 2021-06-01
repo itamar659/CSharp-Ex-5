@@ -1,6 +1,6 @@
 ﻿namespace Ex05.XMixDrixReverse.UI
 {
-    class Program
+    internal class Program
     {
         static void Main()
         {
