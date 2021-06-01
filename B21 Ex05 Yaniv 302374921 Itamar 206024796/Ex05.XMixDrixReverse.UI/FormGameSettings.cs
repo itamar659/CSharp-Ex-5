@@ -88,6 +88,7 @@ namespace Ex05.XMixDrixReverse.UI
             //Row 3
             m_CheckBoxIsMultiplayer = new CheckBox();
             m_CheckBoxIsMultiplayer.AutoSize = true;
+            m_CheckBoxIsMultiplayer.Click += new EventHandler(checkBoxIsMultiplayer_click);
             m_CheckBoxIsMultiplayer.Left = m_LabelPlayer1.Left;
             m_CheckBoxIsMultiplayer.Top = m_TextBoxPlayer1.Bottom + 8;
             this.Controls.Add(m_CheckBoxIsMultiplayer);
@@ -125,6 +126,8 @@ namespace Ex05.XMixDrixReverse.UI
 
             m_NumericUpDownRows = new NumericUpDown();
             m_NumericUpDownRows.AutoSize = true;
+            m_NumericUpDownRows.Minimum = 4;
+            m_NumericUpDownRows.Maximum = 10;
             m_NumericUpDownRows.Width = 10;
             m_NumericUpDownRows.Left = m_LabelRows.Left + 50;
             m_NumericUpDownRows.Top = m_LabelRows.Top;
@@ -139,6 +142,8 @@ namespace Ex05.XMixDrixReverse.UI
 
             m_NumericUpDownCols = new NumericUpDown();
             m_NumericUpDownCols.AutoSize = true;
+            m_NumericUpDownCols.Minimum = 4;
+            m_NumericUpDownCols.Maximum = 10;
             m_NumericUpDownCols.Width = 10;
             m_NumericUpDownCols.Left = m_LabelCols.Left + 50;
             m_NumericUpDownCols.Top = m_LabelRows.Top;
@@ -147,22 +152,35 @@ namespace Ex05.XMixDrixReverse.UI
             //Row 6
             m_ButtonStart = new Button();
             m_ButtonStart.Text = "Start";
-            m_ButtonStart.Click += new EventHandler(button_clicked);
+            m_ButtonStart.Click += new EventHandler(buttonStart_click);
             m_ButtonStart.AutoSize = true;
             m_ButtonStart.Left = 85;
             m_ButtonStart.Top = m_NumericUpDownCols.Top + 35;
-            this.Controls.Add(m_ButtonStart);
+            Controls.Add(m_ButtonStart);
 
-            this.Text = "Game Settings";
-            this.ClientSize = new Size(240, m_ButtonStart.Bottom + 20);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.ShowInTaskbar = false;
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Text = "Game Settings";
+            ClientSize = new Size(240, m_ButtonStart.Bottom + 20);
+            StartPosition = FormStartPosition.CenterScreen;
+            ShowInTaskbar = false;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
         }
 
-        private void button_clicked(object sender, EventArgs e)
+        private void checkBoxIsMultiplayer_click(object sender, EventArgs e)
         {
-            this.Close();
+            CheckBox checkBox = sender as CheckBox;
+            if(checkBox.Checked)
+            {
+                m_TextBoxPlayer2.Enabled = true;
+            }
+            else
+            {
+                m_TextBoxPlayer2.Enabled = false;
+            }
+        }
+
+        private void buttonStart_click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
