@@ -4,8 +4,8 @@
     {
         static void Main()
         {
-            FormXMixDrixReverse a = new FormXMixDrixReverse();
-            a.ShowDialog();
+            FormGameSettings form = new FormGameSettings();
+            form.ShowDialog();
         }
     }
 }
