@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ex05.XMixDrixReverse.Logic
 {
@@ -92,16 +93,23 @@ namespace Ex05.XMixDrixReverse.Logic
             {
                 PlayMode = ePlayMode.MultiPlayer;
             }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Index modes are 1 for single playerm 2 for multiplayer.");
+            }
         }
 
-        public void AddPlayer(BasePlayer i_Player)
+        public void Create2Players()
         {
-            if (!IsGameRunning)
+            addPlayer(new Player(eSymbol.X, "Player 1"));
+
+            if (PlayMode == ePlayMode.SinglePlayer)
             {
-                if (PlayersInGame.Count < MaxNumberOfPlayers)
-                {
-                    PlayersInGame.Add(i_Player);
-                }
+                addPlayer(new NPC(eSymbol.O, "Computer", Board));
+            }
+            else
+            {
+                addPlayer(new Player(eSymbol.O, "Player 2"));
             }
         }
 
@@ -117,29 +125,19 @@ namespace Ex05.XMixDrixReverse.Logic
             }
         }
 
-        public bool PlayTurnByInput(string i_UserInput)
+        public bool PlayTurn(int i_Row, int i_Column)
         {
-            string[] words = i_UserInput.Split(' ');
             bool isValidInput = false;
 
-            if (words.Length == 2)
-            {
-                if (int.TryParse(words[0], out int row) && int.TryParse(words[1], out int col))
-                {
-                    if (isValidPosition(row - 1, col - 1))
-                    {
-                        isValidInput = true;
-                    }
-                }
-            }
-            else if (i_UserInput.ToLower() == "q")
+            if (!isValidPosition(i_Row, i_Column))
             {
                 isValidInput = true;
             }
 
             if (isValidInput)
             {
-                nextActionOnPlayerInput(i_UserInput);
+                nextActionOnPlayerInput(i_Row, i_Column);
+
                 if (CurrentPlayerTurn is NPC npcTurn)
                 {
                     playMove(npcTurn.RandomNextMove());
@@ -151,15 +149,16 @@ namespace Ex05.XMixDrixReverse.Logic
             return isValidInput;
         }
 
-        private void nextActionOnPlayerInput(string i_PlayerInputStr)
+        public void Quit()
         {
-            if (i_PlayerInputStr.ToLower() == "q")
+            m_GameState = eGameState.Quit;
+        }
+
+        private void nextActionOnPlayerInput(int i_Row, int i_Column)
+        {
+            if (m_GameState != eGameState.Quit)
             {
-                m_GameState = eGameState.Quit;
-            }
-            else
-            {
-                playMove(Position.Parse(i_PlayerInputStr));
+                playMove(new Position(i_Row, i_Column));
             }
 
             changeTurn();
@@ -178,6 +177,23 @@ namespace Ex05.XMixDrixReverse.Logic
             else if (BoardUtils.IsFull(m_Board))
             {
                 GameState = eGameState.Draw;
+            }
+        }
+
+        private void addPlayer(BasePlayer i_Player) // TODO: Create a builder for computer or players
+        {
+            if (IsGameRunning)
+            {
+                throw new ArgumentException("Can't add new player while in game.");
+            }
+
+            if (PlayersInGame.Count < MaxNumberOfPlayers)
+            {
+                PlayersInGame.Add(i_Player);
+            }
+            else
+            {
+                throw new ArgumentException("Maximum number reached.");
             }
         }
 

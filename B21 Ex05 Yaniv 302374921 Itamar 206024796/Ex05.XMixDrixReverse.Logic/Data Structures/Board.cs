@@ -4,6 +4,7 @@
     {
         private struct BoardItem
         {
+
             private eSymbol m_Symbol;
 
             public eSymbol Symbol

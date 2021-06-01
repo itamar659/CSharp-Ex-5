@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3E75CFF0-13D7-498C-A9E0-60E39D556810}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Ex05.XMixDrixReverse.Logic</RootNamespace>
     <AssemblyName>Ex05.XMixDrixReverse.Logic</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -31,8 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Core\UI.cs" />
     <Compile Include="Core\XMixDrixReverseEngine.cs" />
     <Compile Include="Data Structures\BasePlayer.cs" />
     <Compile Include="Data Structures\Board.cs" />
@@ -44,9 +46,7 @@
     <Compile Include="enum\eOrientation.cs" />
     <Compile Include="enum\ePlayMode.cs" />
     <Compile Include="enum\eSymbol.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Utils\BoardUtils.cs" />
-    <Compile Include="Utils\ConsoleUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
