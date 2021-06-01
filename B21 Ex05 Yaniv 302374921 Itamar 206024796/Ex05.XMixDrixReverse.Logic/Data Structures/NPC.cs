@@ -2,7 +2,7 @@
 
 namespace Ex05.XMixDrixReverse.Logic
 {
-    public class NPC : BasePlayer
+    internal class NPC : BasePlayer
     {
         private readonly Board r_Board;
 

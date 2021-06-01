@@ -1,6 +1,6 @@
 ﻿namespace Ex05.XMixDrixReverse.Logic
 {
-    public struct Position
+    internal struct Position
     {
         public int Row { get; set; }
         public int Column { get; set; }

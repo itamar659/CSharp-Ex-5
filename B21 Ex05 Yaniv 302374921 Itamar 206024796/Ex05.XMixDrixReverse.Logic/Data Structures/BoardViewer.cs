@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Ex05.XMixDrixReverse.Logic
 {
-    public class BoardViewer
+    internal class BoardViewer
     {
         public static string GetBoardAsString(Board i_Board)
         {

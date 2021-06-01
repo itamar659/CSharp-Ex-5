@@ -99,17 +99,17 @@ namespace Ex05.XMixDrixReverse.Logic
             }
         }
 
-        public void Create2Players()
+        public void Create2Players(string i_FirstPlayerName, string i_SecondPlayerName)
         {
-            addPlayer(new Player(eSymbol.X, "Player 1"));
+            addPlayer(new Player(eSymbol.X, i_FirstPlayerName));
 
             if (PlayMode == ePlayMode.SinglePlayer)
             {
-                addPlayer(new NPC(eSymbol.O, "Computer", Board));
+                addPlayer(new NPC(eSymbol.O, i_SecondPlayerName, Board));
             }
             else
             {
-                addPlayer(new Player(eSymbol.O, "Player 2"));
+                addPlayer(new Player(eSymbol.O, i_SecondPlayerName));
             }
         }
 

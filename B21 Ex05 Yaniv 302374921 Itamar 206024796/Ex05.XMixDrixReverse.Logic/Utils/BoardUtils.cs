@@ -1,6 +1,6 @@
 ﻿namespace Ex05.XMixDrixReverse.Logic
 {
-    public class BoardUtils
+    internal class BoardUtils
     {
         public static bool IsFull(Board i_Board)
         {
