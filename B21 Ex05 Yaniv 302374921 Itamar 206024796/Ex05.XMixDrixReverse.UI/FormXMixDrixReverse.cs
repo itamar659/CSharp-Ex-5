@@ -35,6 +35,8 @@ namespace Ex05.XMixDrixReverse.UI
 
         private void initializeComponents()
         {
+            // TODO: Form title, etc...
+
             m_Buttons = new BoardButtonCollection();
             m_Buttons.CreateCollection(m_Engine.Board.Width, m_Engine.Board.Height);
             m_Buttons.Top = m_Buttons.ButtonOffset.Height;
