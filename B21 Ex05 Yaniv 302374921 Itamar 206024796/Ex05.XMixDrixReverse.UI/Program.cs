@@ -4,7 +4,8 @@
     {
         static void Main()
         {
-
+            FormGameSettings form = new FormGameSettings();
+            form.ShowDialog();
         }
     }
 }
