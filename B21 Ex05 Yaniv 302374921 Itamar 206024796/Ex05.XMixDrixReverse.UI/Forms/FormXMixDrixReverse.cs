@@ -86,8 +86,7 @@ namespace Ex05.XMixDrixReverse.UI
 
         private void initializeComponents()
         {
-            // TODO: ADD LABELS AT THE BOTTOM
-
+            // Create all the buttons around the board
             m_Buttons = new BoardButtonCollection(m_Engine.Board);
             m_Buttons.CreateCollection(m_Engine.Board.Width, m_Engine.Board.Height);
             m_Buttons.Top = m_Buttons.ButtonOffset.Height;
@@ -95,6 +94,7 @@ namespace Ex05.XMixDrixReverse.UI
             m_Buttons.ClickSingleButton += button_Click;
             Controls.Add(m_Buttons);
 
+            // Create the labels at the end
             m_ScoreLabels = new ScoreLabels(m_FormGameSettings.Player1Name, m_FormGameSettings.Player2Name);
             m_ScoreLabels.Top = m_Buttons.Bottom + 10;
             m_ScoreLabels.Left = ClientSize.Width / 2 - m_ScoreLabels.Width / 2;
@@ -105,6 +105,7 @@ namespace Ex05.XMixDrixReverse.UI
                 player.ScoreChanged += m_ScoreLabels.ChangeScore;
             }
 
+            // Change the form settings
             BackColor = Color.FromArgb(200, 220, 240);
             AutoSize = true;
             Size += m_Buttons.ButtonOffset;

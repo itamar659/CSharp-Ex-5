@@ -7,6 +7,8 @@ namespace Ex05.XMixDrixReverse.UI
 {
     class ScoreLabels : Control
     {
+        private readonly char r_EndingChar = ':';
+
         private Label m_LabelFirstPlayerName;
         private Label m_LabelFirstPlayerScore;
         private Label m_LabelSecondPlayerName;
@@ -41,7 +43,7 @@ namespace Ex05.XMixDrixReverse.UI
         private void initializeComponents()
         {
             m_LabelFirstPlayerName = new Label();
-            m_LabelFirstPlayerName.Text = FirstPlayerName + ":";
+            m_LabelFirstPlayerName.Text = FirstPlayerName + r_EndingChar;
             m_LabelFirstPlayerName.AutoSize = true;
             Controls.Add(m_LabelFirstPlayerName);
 
@@ -51,7 +53,7 @@ namespace Ex05.XMixDrixReverse.UI
             Controls.Add(m_LabelFirstPlayerScore);
 
             m_LabelSecondPlayerName = new Label();
-            m_LabelSecondPlayerName.Text = SecondPlayerName + ":";
+            m_LabelSecondPlayerName.Text = SecondPlayerName + r_EndingChar;
             m_LabelSecondPlayerName.Left = m_LabelFirstPlayerScore.Right + 20;
             m_LabelSecondPlayerName.AutoSize = true;
             Controls.Add(m_LabelSecondPlayerName);
@@ -66,7 +68,7 @@ namespace Ex05.XMixDrixReverse.UI
         {
             BasePlayer theSender = sender as BasePlayer;
 
-            if (theSender.Name  + ":" == m_LabelFirstPlayerName.Text)
+            if (theSender.Name + r_EndingChar == m_LabelFirstPlayerName.Text)
             {
                 FirstPlayerScore++;
             }

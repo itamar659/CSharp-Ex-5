@@ -7,11 +7,6 @@ namespace Ex05.XMixDrixReverse.Logic
     {
         public event EventHandler GameFinished;
 
-        protected virtual void OnGameFinished()
-        {
-            GameFinished?.Invoke(this, EventArgs.Empty);
-        }
-
         private bool m_IsGameRunning;
         private int m_CurrentTurn;
         private Board m_Board;
@@ -162,6 +157,11 @@ namespace Ex05.XMixDrixReverse.Logic
         public bool IsValidBoardSize(int i_Width, int i_Height)
         {
             return (i_Width == i_Height);
+        }
+
+        protected virtual void OnGameFinished()
+        {
+            GameFinished?.Invoke(this, EventArgs.Empty);
         }
 
         #region Helpers

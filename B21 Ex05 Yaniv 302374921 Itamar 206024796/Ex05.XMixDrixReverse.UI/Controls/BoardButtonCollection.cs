@@ -23,9 +23,9 @@ namespace Ex05.XMixDrixReverse.UI
             m_Board = i_Board;
         }
 
-        protected virtual void OnClickSingleButton(BoardButtonArgs e)
+        protected virtual void OnClickSingleButton(object sender, EventArgs e)
         {
-            ClickSingleButton?.Invoke(this, e);
+            ClickSingleButton?.Invoke(this, new BoardButtonArgs(sender as BoardButton));
         }
 
         public void CreateCollection(int i_Width, int i_Height)
@@ -44,7 +44,7 @@ namespace Ex05.XMixDrixReverse.UI
                     button.Left = buttonMargin.Width * x;
                     button.Top = buttonMargin.Height * y;
                     button.TabStop = false;
-                    button.Click += buttons_Click;
+                    button.Click += OnClickSingleButton;
                     m_Board.Items[x, y].SymbolChanged += button.ChangeText;
                     Controls.Add(button);
 
@@ -54,11 +54,6 @@ namespace Ex05.XMixDrixReverse.UI
 
             BackColor = Color.FromArgb(200, 220, 240);
             Size = new Size(i_Width * buttonMargin.Width - ButtonOffset.Width, i_Height * buttonMargin.Height - ButtonOffset.Height);
-        }
-
-        private void buttons_Click(object sender, EventArgs e)
-        {
-            OnClickSingleButton(new BoardButtonArgs(sender as BoardButton));
         }
     }
 }

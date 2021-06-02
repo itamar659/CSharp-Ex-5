@@ -14,7 +14,7 @@ namespace Ex05.XMixDrixReverse.UI
             Position = new Point(i_X, i_Y);
         }
 
-        internal void ChangeText(object sender, EventArgs e)
+        public void ChangeText(object sender, EventArgs e)
         {
             Text = (sender as Board.BoardItem).Symbol.ToString() ?? string.Empty;
 
