@@ -66,6 +66,7 @@ namespace Ex05.XMixDrixReverse.UI
 
         public void ChangeScore(object sender, EventArgs e)
         {
+            // TODO: Remove this thnk about another option. Can't compare names the names can be the same.
             BasePlayer theSender = sender as BasePlayer;
 
             if (theSender.Name + r_EndingChar == m_LabelFirstPlayerName.Text)
