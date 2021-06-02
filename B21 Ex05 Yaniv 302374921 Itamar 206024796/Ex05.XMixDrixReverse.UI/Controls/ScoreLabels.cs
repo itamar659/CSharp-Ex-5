@@ -37,7 +37,7 @@ namespace Ex05.XMixDrixReverse.UI
             FirstPlayerScore = 0;
             SecondPlayerScore = 0;
 
-            Size = new Size(m_LabelSecondPlayerScore.Right, m_LabelSecondPlayerScore.Bottom);
+            Size = new Size(m_LabelSecondPlayerScore.Right + 20, m_LabelSecondPlayerScore.Bottom);
         }
 
         private void initializeComponents()

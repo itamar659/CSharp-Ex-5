@@ -42,13 +42,7 @@ namespace Ex05.XMixDrixReverse.UI
             }
             else
             {
-                m_Engine.SetPlayMode(m_FormGameSettings.IsMultiplayer);
-                m_Engine.SetBoardSize(m_FormGameSettings.NumCols, m_FormGameSettings.NumRows);
-                m_Engine.CreatePlayers(m_FormGameSettings.Player1Name, m_FormGameSettings.Player2Name);
-
-                m_Engine.StartNewGame();
-                m_Engine.GameFinished += m_Engine_GameFinished;
-
+                initializeGameEngine();
                 initializeComponents();
             }
         }
@@ -68,6 +62,16 @@ namespace Ex05.XMixDrixReverse.UI
             {
                 Close();
             }
+        }
+
+        private void initializeGameEngine()
+        {
+            m_Engine.SetPlayMode(m_FormGameSettings.IsMultiplayer);
+            m_Engine.SetBoardSize(m_FormGameSettings.NumCols, m_FormGameSettings.NumRows);
+            m_Engine.CreatePlayers(m_FormGameSettings.Player1Name, m_FormGameSettings.Player2Name);
+
+            m_Engine.StartNewGame();
+            m_Engine.GameFinished += m_Engine_GameFinished;
         }
 
         private void writeEndGameMessage(out string i_Title, out string i_Message)
@@ -94,6 +98,14 @@ namespace Ex05.XMixDrixReverse.UI
             m_Buttons.ClickSingleButton += button_Click;
             Controls.Add(m_Buttons);
 
+            // Change the form settings
+            BackColor = Color.FromArgb(200, 220, 240);
+            AutoSize = true;
+            Size += m_Buttons.ButtonOffset;
+            Text = "TicTacToeMisere";
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            StartPosition = FormStartPosition.CenterScreen;
+
             // Create the labels at the end
             m_ScoreLabels = new ScoreLabels(m_FormGameSettings.Player1Name, m_FormGameSettings.Player2Name);
             m_ScoreLabels.Top = m_Buttons.Bottom + 10;
@@ -104,14 +116,6 @@ namespace Ex05.XMixDrixReverse.UI
             {
                 player.ScoreChanged += m_ScoreLabels.ChangeScore;
             }
-
-            // Change the form settings
-            BackColor = Color.FromArgb(200, 220, 240);
-            AutoSize = true;
-            Size += m_Buttons.ButtonOffset;
-            Text = "TicTacToeMisere";
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void button_Click(object sender, BoardButtonArgs e)

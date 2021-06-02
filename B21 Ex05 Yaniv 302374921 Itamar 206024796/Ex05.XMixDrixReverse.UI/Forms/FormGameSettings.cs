@@ -183,10 +183,12 @@ namespace Ex05.XMixDrixReverse.UI
             if(checkBox.Checked)
             {
                 m_TextBoxPlayer2.Enabled = true;
+                m_TextBoxPlayer2.Text = string.Empty;
             }
             else
             {
                 m_TextBoxPlayer2.Enabled = false;
+                m_TextBoxPlayer2.Text = "[Computer]";
             }
         }
 
