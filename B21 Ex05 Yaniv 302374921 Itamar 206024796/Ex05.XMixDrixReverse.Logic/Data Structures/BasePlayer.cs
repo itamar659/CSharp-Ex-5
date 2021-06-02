@@ -1,7 +1,11 @@
-﻿namespace Ex05.XMixDrixReverse.Logic
+﻿using System;
+
+namespace Ex05.XMixDrixReverse.Logic
 {
     public abstract class BasePlayer
     {
+        public event EventHandler ScoreChanged;
+
         private string m_Name;
         private int m_Score;
         private eSymbol m_Symbol;
@@ -15,7 +19,11 @@
         public int Score
         {
             get { return m_Score; }
-            set { m_Score = value; }
+            set 
+            {
+                m_Score = value;
+                OnScoreChanged();
+            }
         }
 
         public eSymbol Symbol
@@ -29,6 +37,11 @@
             m_Name = i_Name;
             m_Symbol = i_Symbol;
             m_Score = 0;
+        }
+
+        protected virtual void OnScoreChanged()
+        {
+            ScoreChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

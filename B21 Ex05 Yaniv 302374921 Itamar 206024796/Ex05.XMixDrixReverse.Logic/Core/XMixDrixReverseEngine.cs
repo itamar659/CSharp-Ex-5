@@ -5,6 +5,13 @@ namespace Ex05.XMixDrixReverse.Logic
 {
     public class XMixDrixReverseEngine
     {
+        public event EventHandler GameFinished;
+
+        protected virtual void OnGameFinished()
+        {
+            GameFinished?.Invoke(this, EventArgs.Empty);
+        }
+
         private bool m_IsGameRunning;
         private int m_CurrentTurn;
         private Board m_Board;
@@ -82,33 +89,34 @@ namespace Ex05.XMixDrixReverse.Logic
             r_PlayersInGame = new List<BasePlayer>(MaxNumberOfPlayers);
         }
 
-        public void SetBoardSize(int i_NumberOfRows, int i_NumberOfCols)
+        public void SetBoardSize(int i_Width, int i_Height)
         {
-            Board = new Board(i_NumberOfRows, i_NumberOfCols);
+            Board = new Board(i_Width, i_Height);
         }
 
-        public void SetPlayModeByIdx(int i_PlayMode)
+        public void SetPlayMode(bool i_IsMultiplayerMode)
         {
-            if (i_PlayMode == 1)
-            {
-                PlayMode = ePlayMode.SinglePlayer;
-            }
-            else if (i_PlayMode == 2)
+            if (i_IsMultiplayerMode)
             {
                 PlayMode = ePlayMode.MultiPlayer;
             }
             else
             {
-                throw new ArgumentOutOfRangeException("Index modes are 1 for single playerm 2 for multiplayer.");
+                PlayMode = ePlayMode.SinglePlayer;
             }
         }
 
-        public void Create2Players(string i_FirstPlayerName, string i_SecondPlayerName)
+        public void CreatePlayers(string i_FirstPlayerName, string i_SecondPlayerName)
         {
             addPlayer(new Player(eSymbol.X, i_FirstPlayerName));
 
             if (PlayMode == ePlayMode.SinglePlayer)
             {
+                if (Board == null)
+                {
+                    throw new ArgumentException("The board has to be initialized before assigning it to the NPC");
+                }
+
                 addPlayer(new NPC(eSymbol.O, i_SecondPlayerName, Board));
             }
             else
@@ -129,18 +137,18 @@ namespace Ex05.XMixDrixReverse.Logic
             }
         }
 
-        public bool PlayTurn(int i_Row, int i_Column)
+        public bool PlayTurn(int i_X, int i_Y)
         {
             bool isValidInput = false;
 
-            if (isValidPosition(i_Row, i_Column))
+            if (isValidPosition(i_X, i_Y))
             {
                 isValidInput = true;
             }
 
             if (isValidInput)
             {
-                playMove(new Position(i_Row, i_Column));
+                playMove(new Point(i_X, i_Y));
 
                 if (CurrentPlayerTurn is NPC npcTurn)
                 {
@@ -151,37 +159,23 @@ namespace Ex05.XMixDrixReverse.Logic
             return isValidInput;
         }
 
-        public void Quit()
+        public bool IsValidBoardSize(int i_Width, int i_Height)
         {
-            m_GameState = eGameState.Quit;
-        }
-
-        public bool IsValidBoardChoice(int i_Size)
-        {
-            return (3 <= i_Size && i_Size <= 9);
-        }
-
-        public bool IsValidPlayModeChoice(int i_Mode)
-        {
-            return (i_Mode == 1 || i_Mode == 2);
+            return (i_Width == i_Height);
         }
 
         #region Helpers
 
-        private void playMove(Position i_Position)
+        private void playMove(Point i_Position)
         {
-            if (m_GameState != eGameState.Quit)
-            {
-                chnageBoardSymbol(i_Position);
-            }
-
+            changeBoardSymbol(i_Position);
             changeTurn();
             handleGameState();
         }
 
-        private void chnageBoardSymbol(Position i_Position)
+        private void changeBoardSymbol(Point i_Position)
         {
-            Board.SetItem(CurrentPlayerTurn.Symbol, i_Position.Row, i_Position.Column);
+            Board.SetItem(CurrentPlayerTurn.Symbol, i_Position.X, i_Position.Y);
             bool hasWon = BoardUtils.HasCompleteSymbolSequence(Board, CurrentPlayerTurn.Symbol, i_Position);
 
             if (hasWon)
@@ -190,11 +184,11 @@ namespace Ex05.XMixDrixReverse.Logic
             }
             else if (BoardUtils.IsFull(m_Board))
             {
-                GameState = eGameState.Draw;
+                GameState = eGameState.Tie;
             }
         }
 
-        private void addPlayer(BasePlayer i_Player) // TODO: Create a builder for computer or players
+        private void addPlayer(BasePlayer i_Player)
         {
             if (IsGameRunning)
             {
@@ -223,10 +217,12 @@ namespace Ex05.XMixDrixReverse.Logic
         {
             if (GameState != eGameState.InProgress)
             {
-                if (GameState == eGameState.Win || GameState == eGameState.Quit)
+                if (GameState == eGameState.Win)
                 {
                     CurrentPlayerTurn.Score++;
                 }
+
+                OnGameFinished();
 
                 CurrentTurn = 0;
                 CurrentPlayerTurn = PlayersInGame[0];
@@ -234,11 +230,11 @@ namespace Ex05.XMixDrixReverse.Logic
             }
         }
 
-        private bool isValidPosition(int i_Row, int i_Col)
+        private bool isValidPosition(int i_X, int i_Y)
         {
-            return ((0 <= i_Row && i_Row < Board.Height) &&
-                (0 <= i_Col && i_Col < Board.Width) &&
-                !Board.IsOccupied(i_Row, i_Col));
+            return ((0 <= i_X && i_X < Board.Width) &&
+                (0 <= i_Y && i_Y < Board.Height) &&
+                !Board.IsOccupied(i_X, i_Y));
         }
 
         #endregion

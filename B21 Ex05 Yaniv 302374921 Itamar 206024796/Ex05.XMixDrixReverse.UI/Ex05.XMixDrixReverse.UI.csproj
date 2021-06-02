@@ -42,21 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardButton.cs">
+    <Compile Include="Controls\BoardButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BoardButtonArgs.cs" />
-    <Compile Include="BoardButtonCollection.cs">
+    <Compile Include="Controls\BoardButtonCollection.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BoardButtonEventHandler.cs" />
-    <Compile Include="FormGameSettings.cs">
+    <Compile Include="Forms\FormGameSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormXMixDrixReverse.cs">
+    <Compile Include="Forms\FormXMixDrixReverse.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Controls\ScoreLabels.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ex05.XMixDrixReverse.Logic\Ex05.XMixDrixReverse.Logic.csproj">

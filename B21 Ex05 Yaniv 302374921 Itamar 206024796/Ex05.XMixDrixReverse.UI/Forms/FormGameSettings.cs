@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Ex05.XMixDrixReverse.UI
@@ -36,14 +37,24 @@ namespace Ex05.XMixDrixReverse.UI
             get { return m_TextBoxPlayer1.Text; }
         }
 
-        public bool isMultiplayer
+        public bool IsMultiplayer
         {
             get { return m_CheckBoxIsMultiplayer.Checked; }
         }
 
         public string Player2Name
         {
-            get { return m_TextBoxPlayer2.Text; }
+            get
+            {
+                string name = m_TextBoxPlayer2.Text;
+
+                if (!m_CheckBoxIsMultiplayer.Checked)
+                {
+                    name = m_TextBoxPlayer2.Text.Substring(1, m_TextBoxPlayer2.Text.Length - 2);
+                }
+
+                return name;
+            }
         }
 
         public int NumRows
@@ -55,6 +66,8 @@ namespace Ex05.XMixDrixReverse.UI
         {
             get { return int.Parse(m_NumericUpDownCols.Text); }
         }
+
+        public bool ClosedByStart { get; private set; }
 
         public FormGameSettings()
         {
@@ -161,13 +174,13 @@ namespace Ex05.XMixDrixReverse.UI
             Text = "Game Settings";
             ClientSize = new Size(240, m_ButtonStart.Bottom + 20);
             StartPosition = FormStartPosition.CenterScreen;
-            ShowInTaskbar = false;
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
         }
 
         private void checkBoxIsMultiplayer_click(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
+
             if(checkBox.Checked)
             {
                 m_TextBoxPlayer2.Enabled = true;
@@ -180,6 +193,7 @@ namespace Ex05.XMixDrixReverse.UI
 
         private void buttonStart_click(object sender, EventArgs e)
         {
+            ClosedByStart = sender == m_ButtonStart;
             Close();
         }
     }

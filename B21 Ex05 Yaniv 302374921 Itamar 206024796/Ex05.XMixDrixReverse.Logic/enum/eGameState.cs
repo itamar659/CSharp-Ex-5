@@ -4,7 +4,6 @@
     {
         InProgress,
         Win,
-        Draw,
-        Quit
+        Tie
     }
 }

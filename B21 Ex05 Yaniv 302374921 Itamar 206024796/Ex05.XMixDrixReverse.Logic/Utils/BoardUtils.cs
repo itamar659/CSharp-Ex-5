@@ -6,11 +6,11 @@
         {
             bool isFull = true;
 
-            for (int i = 0; i < i_Board.Height; i++)
+            for (int x = 0; x < i_Board.Width; x++)
             {
-                for (int j = 0; j < i_Board.Width; j++)
+                for (int y = 0; y < i_Board.Height; y++)
                 {
-                    if (!i_Board.IsOccupied(i, j))
+                    if (!i_Board.IsOccupied(x, y))
                     {
                         isFull = false;
                     }
@@ -20,7 +20,7 @@
             return isFull;
         }
 
-        public static bool HasCompleteSymbolSequence(Board i_Board, eSymbol i_Symbol, Position i_Pos)
+        public static bool HasCompleteSymbolSequence(Board i_Board, eSymbol i_Symbol, Point i_Pos)
         {
             bool result = hasCompleteSymbolSequenceByOrientation(eOrientation.Horizontal, i_Board, i_Symbol, i_Pos) ||
                           hasCompleteSymbolSequenceByOrientation(eOrientation.Vertical, i_Board, i_Symbol, i_Pos) ||
@@ -30,7 +30,7 @@
             return result;
         }
 
-        private static bool hasCompleteSymbolSequenceByOrientation(eOrientation i_Orientation, Board i_Board, eSymbol i_Symbol, Position i_Pos)
+        private static bool hasCompleteSymbolSequenceByOrientation(eOrientation i_Orientation, Board i_Board, eSymbol i_Symbol, Point i_Pos)
         {
             bool result = true;
             int row, col;
@@ -39,13 +39,13 @@
             {
                 if (i_Orientation == eOrientation.Horizontal)
                 {
-                    row = i_Pos.Row;
+                    row = i_Pos.X;
                     col = i;
                 }
                 else if (i_Orientation == eOrientation.Vertical)
                 {
                     row = i;
-                    col = i_Pos.Column;
+                    col = i_Pos.Y;
                 }
                 else if (i_Orientation == eOrientation.Ascending)
                 {

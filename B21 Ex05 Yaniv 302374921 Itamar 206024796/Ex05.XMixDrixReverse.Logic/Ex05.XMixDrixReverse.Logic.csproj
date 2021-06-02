@@ -41,7 +41,7 @@
     <Compile Include="Data Structures\BoardViewer.cs" />
     <Compile Include="Data Structures\NPC.cs" />
     <Compile Include="Data Structures\Player.cs" />
-    <Compile Include="Data Structures\Position.cs" />
+    <Compile Include="Data Structures\Point.cs" />
     <Compile Include="enum\eGameState.cs" />
     <Compile Include="enum\eOrientation.cs" />
     <Compile Include="enum\ePlayMode.cs" />

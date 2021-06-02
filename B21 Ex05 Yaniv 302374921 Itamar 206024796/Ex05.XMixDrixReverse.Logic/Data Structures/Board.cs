@@ -1,30 +1,39 @@
-﻿namespace Ex05.XMixDrixReverse.Logic
+﻿using System;
+
+namespace Ex05.XMixDrixReverse.Logic
 {
     public class Board
     {
-        private struct BoardItem
+        public class BoardItem
         {
-            private eSymbol m_Symbol;
+            public event EventHandler SymbolChanged;
 
-            public eSymbol Symbol
+            protected virtual void OnSymbolChanged()
             {
-                get { return m_Symbol; }
-                set { m_Symbol = value; }
+                SymbolChanged?.Invoke(this, EventArgs.Empty);
             }
 
-            public BoardItem(eSymbol i_Symbol)
+            private eSymbol? m_Symbol;
+
+            public eSymbol? Symbol
             {
-                m_Symbol = i_Symbol;
+                get { return m_Symbol; }
+                set
+                {
+                    m_Symbol = value;
+                    OnSymbolChanged();
+                }
             }
         }
 
-        private readonly BoardItem?[,] r_Board;
+        public readonly BoardItem[,] Items;
         private readonly int r_Width;
         private readonly int r_Height;
 
         public int Width
         {
             get { return r_Width; }
+
         }
 
         public int Height
@@ -32,42 +41,50 @@
             get { return r_Height; }
         }
 
-        public Board(int i_Rows, int i_Columns)
+        public Board(int i_Height, int i_Width)
         {
-            r_Width = i_Columns;
-            r_Height = i_Rows;
-            r_Board = new BoardItem?[i_Rows, i_Columns];
-        }
+            r_Width = i_Width;
+            r_Height = i_Height;
+            Items = new BoardItem[i_Width, i_Height];
 
-        public void SetItem(eSymbol i_Symbol, int i_Row, int i_Col)
-        {
-            r_Board[i_Row, i_Col] = new BoardItem(i_Symbol);
-        }
-
-        public eSymbol GetItem(int i_Row, int i_Col)
-        {
-            return r_Board[i_Row, i_Col].Value.Symbol;
-        }
-
-        public void Delete(int i_Row, int i_Col)
-        {
-            r_Board[i_Row, i_Col] = null;
-        }
-
-        public void Clear()
-        {
-            for (int i = 0; i < r_Width; i++)
+            for (int x = 0; x < i_Width; x++)
             {
-                for (int j = 0; j < r_Height; j++)
+                for (int y = 0; y < i_Height; y++)
                 {
-                    Delete(i, j);
+                    Items[x, y] = new BoardItem();
                 }
             }
         }
 
-        public bool IsOccupied(int i_Row, int i_Column)
+        public void SetItem(eSymbol i_Symbol, int i_X, int i_Y)
         {
-            return r_Board[i_Row, i_Column] != null;
+            Items[i_X, i_Y].Symbol = i_Symbol;
+        }
+
+        public eSymbol GetItem(int i_X, int i_Y)
+        {
+            return Items[i_X, i_Y].Symbol ?? eSymbol.O;
+        }
+
+        public void Delete(int i_X, int i_Y)
+        {
+            Items[i_X, i_Y].Symbol = null;
+        }
+
+        public void Clear()
+        {
+            for (int x = 0; x < r_Width; x++)
+            {
+                for (int y = 0; y < r_Height; y++)
+                {
+                    Delete(x, y);
+                }
+            }
+        }
+
+        public bool IsOccupied(int i_X, int i_Y)
+        {
+            return Items[i_X, i_Y].Symbol != null;
         }
     }
 }
