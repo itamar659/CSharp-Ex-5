@@ -7,8 +7,6 @@ namespace Ex05.XMixDrixReverse.UI
         static void Main()
         {
             FormXMixDrixReverse formXMixDrixReverse = new FormXMixDrixReverse();
-            formXMixDrixReverse.StartPosition = FormStartPosition.CenterScreen;
-            formXMixDrixReverse.FormBorderStyle = FormBorderStyle.FixedDialog;
             formXMixDrixReverse.ShowDialog();
         }
     }

@@ -22,8 +22,8 @@ namespace Ex05.XMixDrixReverse.UI
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
             InitializeSettings();
+            base.OnLoad(e);
         }
 
         public void InitializeSettings()
@@ -110,6 +110,8 @@ namespace Ex05.XMixDrixReverse.UI
             AutoSize = true;
             Size += m_Buttons.ButtonOffset;
             Text = "TicTacToeMisere";
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void button_Click(object sender, BoardButtonArgs e)
