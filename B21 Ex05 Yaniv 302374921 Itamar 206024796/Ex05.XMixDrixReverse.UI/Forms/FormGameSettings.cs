@@ -136,7 +136,7 @@ namespace Ex05.XMixDrixReverse.UI
             m_LabelRows.Top = m_LabelBoardSize.Top + 30;
             Controls.Add(m_LabelRows);
 
-            m_NumericUpDownRows = new NumericUpDown();
+            m_NumericUpDownRows = new NumericUpDown(); // TODO: Every time we increase cols, to increase rows too.
             m_NumericUpDownRows.AutoSize = true;
             m_NumericUpDownRows.Minimum = 4;
             m_NumericUpDownRows.Maximum = 10;
@@ -152,7 +152,7 @@ namespace Ex05.XMixDrixReverse.UI
             m_LabelCols.Top = m_LabelRows.Top;
             Controls.Add(m_LabelCols);
 
-            m_NumericUpDownCols = new NumericUpDown();
+            m_NumericUpDownCols = new NumericUpDown(); // TODO: Every time we increase rows, to increase cols too.
             m_NumericUpDownCols.AutoSize = true;
             m_NumericUpDownCols.Minimum = 4;
             m_NumericUpDownCols.Maximum = 10;
